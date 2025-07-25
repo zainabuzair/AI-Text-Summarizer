@@ -1,5 +1,7 @@
 function summarizeText() {
   const text = document.getElementById("inputText").value;
+  const lengthOption = document.getElementById("summaryLength").value;
+
   if (!text.trim()) {
     alert("Please enter some text.");
     return;
@@ -7,6 +9,7 @@ function summarizeText() {
 
   const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [];
   const wordFreq = {};
+  const totalWords = text.split(/\s+/).length;
 
   text
     .toLowerCase()
@@ -29,6 +32,42 @@ function summarizeText() {
 
   scoredSentences.sort((a, b) => b.score - a.score);
 
-  const summary = scoredSentences.slice(0, Math.max(1, sentences.length / 3)).map(s => s.sentence).join(" ");
+  let keepCount;
+  switch (lengthOption) {
+    case "short":
+      keepCount = Math.max(1, Math.floor(sentences.length * 0.2));
+      break;
+    case "medium":
+      keepCount = Math.max(1, Math.floor(sentences.length * 0.4));
+      break;
+    case "long":
+      keepCount = Math.max(1, Math.floor(sentences.length * 0.6));
+      break;
+  }
+
+  const summarySentences = scoredSentences.slice(0, keepCount).map(s => s.sentence.trim());
+  const summary = summarySentences.join(" ");
+
   document.getElementById("summary").value = summary.trim();
+
+  const summaryWordCount = summary.split(/\s+/).length;
+  const compression = Math.round((summaryWordCount / totalWords) * 100);
+  document.getElementById("summaryStats").innerText =
+    `Original: ${totalWords} words | Summary: ${summaryWordCount} words (${compression}% length)`;
+}
+
+function copySummary() {
+  const summary = document.getElementById("summary");
+  summary.select();
+  document.execCommand("copy");
+  alert("Summary copied to clipboard!");
+}
+
+function downloadSummary() {
+  const text = document.getElementById("summary").value;
+  const blob = new Blob([text], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.download = "summary.txt";
+  link.href = URL.createObjectURL(blob);
+  link.click();
 }

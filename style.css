@@ -7,6 +7,16 @@
   justify-content: center;
 }
 
+h1 {
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+p.fst-italic {
+  font-size: 1.1rem;
+}
+
+
 /* Glass card effect */
 .glass-card {
   max-width: 700px;
@@ -35,4 +45,8 @@
 button:hover {
   transform: scale(1.05);
   transition: 0.2s ease-in-out;
+}
+
+#summaryStats {
+  font-size: 0.95rem;
 }
