@@ -1,0 +1,38 @@
+/* Background gradient */
+.background {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #c3e0e5, #f9f7f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glass card effect */
+.glass-card {
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Inputs styling */
+.input-area,
+.output-area {
+  background-color: #ffffffcc;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 12px;
+  transition: 0.3s;
+}
+
+.input-area:focus,
+.output-area:focus {
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+  border-color: #86b7fe;
+}
+
+button:hover {
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+}
